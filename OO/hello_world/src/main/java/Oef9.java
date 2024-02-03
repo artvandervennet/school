@@ -1,4 +1,4 @@
-import java.awt.*;
+
 import java.time.LocalDate; // import the LocalDate class
 
 public class Oef9 {
@@ -18,41 +18,15 @@ public class Oef9 {
 
         int aantal_dagen;
         switch (maand){
-            case 1:
+            case 1, 3, 5, 7, 8, 10, 12:
                 aantal_dagen = 31;
                 break;
             case 2:
                 aantal_dagen = (isSchrikkeljaar(jaar) ? 29: 28);
                 break;
-            case 3:
-                aantal_dagen = 31;
-                break;
-            case 4:
+
+            case 4, 6, 9, 11:
                 aantal_dagen = 30;
-                break;
-            case 5:
-                aantal_dagen = 31;
-                break;
-            case 6:
-                aantal_dagen = 3;
-                break;
-            case 7:
-                aantal_dagen = 31;
-                break;
-            case 8:
-                aantal_dagen = 31;
-                break;
-            case 9:
-                aantal_dagen = 3;
-                break;
-            case 10:
-                aantal_dagen = 31;
-                break;
-            case 11:
-                aantal_dagen = 3;
-                break;
-            case 12:
-                aantal_dagen = 31;
                 break;
             default:
                 return false;
