@@ -5,7 +5,14 @@ public class Oef9 {
     public static void main(String[] args) {
         int dag = 1;
         int maand = 3;
-        int jaar = 2005;
+        int jaar = 2024;
+        System.out.println(isSchrikkeljaar(jaar));
+        System.out.println(isDatumGeldig(dag, maand, jaar));
+
+        LocalDate date = LocalDate.now(); // Create a date object
+        System.out.println(formatDatum(date));
+        System.out.println(formatDatum(dag,maand, jaar));
+
     }
 
     public static boolean isSchrikkeljaar(int jaar){
@@ -37,7 +44,7 @@ public class Oef9 {
         int current_year = date.getYear();
         System.out.println(current_year);
 
-        return (1900 < jaar && jaar < current_year)  && (0 < dag && dag < aantal_dagen);
+        return (1900 <= jaar && jaar <= current_year)  && (0 < dag && dag <= aantal_dagen);
     }
 
     public static String formatDatum(int dag, int maand, int jaar){
