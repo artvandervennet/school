@@ -74,10 +74,11 @@ public class KaartSpel {
         for (int i = 0; i < aantalRondes; i++) {
             speelRonde();
         }
+        bepaalWinnaar();
     }
 
     public String bepaalWinnaar(){
-        speelSpel();
+
 
         if (speler1.getScore() > speler2.getScore()){
             return speler1.getNaam();
