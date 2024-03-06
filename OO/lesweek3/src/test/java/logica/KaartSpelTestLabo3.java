@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
  * KaartSpelTest
  *
  * @author kristien.vanassche
- * @version 25/02/2024
+ * @version 03/03/2024
  */
-class KaartSpelTest {
+class KaartSpelTestLabo3 {
     private KaartSpel kaartspel, kaartspelDummyNames;
     private static final int AANTAL_RONDES = 5;
 
-    public KaartSpelTest() {
+    public KaartSpelTestLabo3() {
         kaartspelDummyNames = new KaartSpel();
         kaartspel = new KaartSpel("Kristien", "Evert-Jan", AANTAL_RONDES);
     }
@@ -47,21 +47,25 @@ class KaartSpelTest {
 
     @Test
     void speelEenRonde() {
+        assertEquals(52, kaartspel.getKaarten().size());
         kaartspel.bepaalWieMagStarten();
         Speler s1 = kaartspel.getSpeler1();
         Speler s2 = kaartspel.getSpeler2();
         kaartspel.speelRonde();
         assertTrue(s1.getScore() == 1 || s2.getScore() == 1);
+        assertEquals(50, kaartspel.getKaarten().size());
     }
 
     @Test
     void speelRondes() {
+        int aantal = kaartspel.getKaarten().size();
         kaartspel.bepaalWieMagStarten();
         Speler s1 = kaartspel.getSpeler1();
         Speler s2 = kaartspel.getSpeler2();
         for (int i = 0; i < AANTAL_RONDES; i++) {
             kaartspel.speelRonde();
             assertEquals(i+1, s1.getScore() + s2.getScore());
+            assertEquals(aantal - 2*(i+1), kaartspel.getKaarten().size());
         }
     }
 
@@ -74,9 +78,15 @@ class KaartSpelTest {
 
         for (int i = 0; i < AANTAL_RONDES; i++) {
             kaartspel.speelRonde();
-            String hoogsteKaart = Kaart.geefHoogsteKaart(s1.getKaartInHand().toString(), s2.getKaartInHand().toString());
-            if (s1.getKaartInHand().toString().equals(hoogsteKaart)) score1++;
-            else if (s2.getKaartInHand().toString().equals(hoogsteKaart)) score2++;
+            Kaart hoogsteKaart = Kaart.geefHoogsteKaart(s1.getKaartInHand(), s2.getKaartInHand());
+            if (s1.getKaartInHand().getSoort().equals(hoogsteKaart.getSoort()) &&
+                    s1.getKaartInHand().getWaarde().equals(hoogsteKaart.getWaarde())) {
+                score1++;
+            }
+            else if (s2.getKaartInHand().getSoort().equals(hoogsteKaart.getSoort()) &&
+                    s2.getKaartInHand().getWaarde().equals(hoogsteKaart.getWaarde())) {
+                score2++;
+            }
             assertEquals(score1, s1.getScore());
             assertEquals(score2, s2.getScore());
         }
@@ -108,14 +118,25 @@ class KaartSpelTest {
     }
 
     @Test
-    void bepaalWinnaar() {
-        String winnaar = kaartspel.bepaalWinnaar();
-        assertEquals("gelijkspel", winnaar);
+    void bepaalWinnaar1() {
+        Speler winnaar = kaartspel.bepaalWinnaar();
+        assertEquals(null, winnaar);
 
         kaartspel.speelSpel();
         winnaar = kaartspel.bepaalWinnaar();
-        assertTrue(winnaar.equals(kaartspel.getSpeler1().getNaam())
-                || winnaar.equals(kaartspel.getSpeler2().getNaam())
-                || winnaar.equals("gelijkspel"));
+        assertTrue(winnaar.equals(kaartspel.getSpeler1())
+                || winnaar.equals(kaartspel.getSpeler2())
+                || winnaar == null);
+    }
+
+    @Test
+    void bepaalWinnaar2() {
+        assertNull(kaartspel.bepaalWinnaar());
+        kaartspel.getSpeler1().incrementScore();
+        assertEquals(kaartspel.getSpeler1(), kaartspel.bepaalWinnaar());
+        kaartspel.getSpeler2().incrementScore();
+        assertNull(kaartspel.bepaalWinnaar());
+        kaartspel.getSpeler2().incrementScore();
+        assertEquals(kaartspel.getSpeler2(), kaartspel.bepaalWinnaar());
     }
 }

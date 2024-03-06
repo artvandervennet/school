@@ -42,13 +42,15 @@ public class Speler {
     }
 
     public Kaart kiesRandomKaart(){
-        Dobbelsteen dobbel = new Dobbelsteen(1, kaartboek.AANTAL);
-
-        dobbel.gooi();
-
-        kaartInHand = kaartboek.kaarten[dobbel.get()];
+        kaartInHand = kaartboek.haalRandomKaart();
         return kaartInHand;
     }
 
+    public String toString(){
+        return naam + ": " + score;
+    }
 
+    public Kaart trekRandomKaartUitKaartboek(){
+        return kaartboek.haalRandomKaart();
+    }
 }

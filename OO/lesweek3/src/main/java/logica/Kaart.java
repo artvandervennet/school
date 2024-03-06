@@ -1,92 +1,109 @@
 package logica;
 
-import java.util.Arrays;
-
 public class Kaart {
 
 
-    private char soort;
-    private char waarde;
+    private KaartSoort soort;
+    private KaartWaarde waarde;
 
-    public Kaart(char soort, char waarde){
+    public Kaart(KaartSoort soort, KaartWaarde waarde){
         this.soort = soort;
         this.waarde = waarde;
     }
 
-    public Kaart(String kaart){
-        this(kaart.charAt(0), kaart.charAt(1));
+    public Kaart(String data){
+        try{
+            this.soort = Kaart.naarKaartSoort(data.charAt(0));
+            this.waarde = Kaart.naarKaartWaarde(data.charAt(1));
+        }catch (IllegalArgumentException ignored){
+
+        }
+
+
+        //this(Kaart.naarKaartSoort(data.charAt(0)) ,Kaart.naarKaartWaarde(data.charAt(1)) );
+
+
     }
 
-    public char getSoort() {
+    public KaartSoort getSoort() {
         return soort;
     }
 
-    public char getWaarde() {
+    public KaartWaarde getWaarde() {
         return waarde;
     }
 
-    public static boolean isGeldigeSoort(char soort){
-        return (soort == 'S' || soort == 'R' || soort == 'H' || soort == 'K');
-    }
-
-    public static boolean isGeldigeWaarde(char waarde){
-        if (waarde == 'T' || waarde == 'B' || waarde == 'D' || waarde == 'H' || waarde == 'A' ){
-            return true;
-        }else if(Character.isDigit(waarde)){
-            return ('1' < waarde && waarde <= '9' );
-        }
-        return false;
-    }
-
-    public static boolean isGeldigeKaart(String kaart){
-        return (kaart.length() == 2 && isGeldigeSoort(kaart.charAt(0)) && isGeldigeWaarde(kaart.charAt(1)));
-    }
-
-    public static String geefHoogsteKaart(String k1, String k2){
-        String winnaar = "geen geldige kaart";
-
-        String nummers = "23456789TBDHA";
 
 
-        if (isGeldigeKaart(k1) && isGeldigeKaart(k2)){
-
-            if (k1.charAt(0) == 'S' || k2.charAt(0) == 'S'){
-
-                if (k1.charAt(0) == 'S' && k2.charAt(0) == 'S'){
-
-                    if (nummers.indexOf(k1.charAt(1)) > nummers.indexOf(k2.charAt(1))){
-                        winnaar = k1;
-                    }else if (nummers.indexOf(k1.charAt(1)) < nummers.indexOf(k2.charAt(1))){
-                        winnaar = k2;
-                    }else{
-                        winnaar = "gelijk";
-                    }
 
 
+    public static Kaart geefHoogsteKaart(Kaart k1, Kaart k2){
+
+        if (k1.getSoort() == KaartSoort.SCHOPPEN || k2.getSoort() == KaartSoort.SCHOPPEN){
+
+            if (k1.getSoort() == KaartSoort.SCHOPPEN  && k2.getSoort() == KaartSoort.SCHOPPEN ){
+
+                if (k1.getWaarde().ordinal() < k2.getWaarde().ordinal()){
+                    return k2;
                 }else{
-                    return (k1.charAt(0) == 'S') ? k1 : k2;
+                    return k1;
                 }
 
-            } //schoppen
 
-            if (nummers.indexOf(k1.charAt(1)) > nummers.indexOf(k2.charAt(1))){
-                winnaar = k1;
-            }else if (nummers.indexOf(k1.charAt(1)) < nummers.indexOf(k2.charAt(1))){
-                winnaar = k2;
             }else{
-                winnaar = "gelijk";
+                return (k1.getSoort() == KaartSoort.SCHOPPEN) ? k1 : k2;
             }
 
+        } //schoppen
+
+        if (k1.getWaarde().ordinal() < k2.getWaarde().ordinal()){
+            return k2;
+        }else{
+            return k1;
         }
-        return winnaar;
+
     }
 
-    public boolean isGeldig(){
-        return (isGeldigeSoort(this.soort) && isGeldigeWaarde(this.waarde));
+    public boolean isGelijkwaardigAan(Kaart andereKaart){
+        if (this.getSoort() == KaartSoort.SCHOPPEN ^ andereKaart.getSoort() == KaartSoort.SCHOPPEN){
+            return false;
+        }else{
+            return this.getWaarde() == andereKaart.getWaarde();
+        }
+    }
+
+
+    private static KaartSoort naarKaartSoort(char c){
+        return switch (c) {
+            case 'H' -> KaartSoort.HARTEN;
+            case 'K' -> KaartSoort.KLAVEREN;
+            case 'R' -> KaartSoort.RUITEN;
+            case 'S' -> KaartSoort.SCHOPPEN;
+            default -> throw new IllegalArgumentException("geen geldige soort");
+        };
+    }
+
+    private static KaartWaarde naarKaartWaarde(char c){
+        return switch (c) {
+            case '2' -> KaartWaarde.TWEE;
+            case '3' -> KaartWaarde.DRIE;
+            case '4' -> KaartWaarde.VIER;
+            case '5' -> KaartWaarde.VIJF;
+            case '6' -> KaartWaarde.ZES;
+            case '7' -> KaartWaarde.ZEVEN;
+            case '8' -> KaartWaarde.ACHT;
+            case '9' -> KaartWaarde.NEGEN;
+            case 'T' -> KaartWaarde.TIEN;
+            case 'B' -> KaartWaarde.BOER;
+            case 'D' -> KaartWaarde.DAME;
+            case 'H' -> KaartWaarde.HEER;
+            case 'A' -> KaartWaarde.AAS;
+            default -> throw new IllegalArgumentException("geen geldige waarde");
+        };
     }
 
     @Override
     public String toString() {
-        return ""+this.soort+this.waarde;
+        return this.soort+" "+this.waarde;
     }
 }

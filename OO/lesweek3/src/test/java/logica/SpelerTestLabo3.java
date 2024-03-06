@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * SpelerTest
  *
  * @author kristien.vanassche
- * @version 25/02/2024
+ * @version 03/03/2024
  */
-class SpelerTest {
+class SpelerTestLabo3 {
     private Speler speler;
 
-    public SpelerTest() {
+    public SpelerTestLabo3() {
         speler = new Speler("Kristien");
     }
 
@@ -40,31 +40,33 @@ class SpelerTest {
     @Test
     void kiesRandomKaart() {
         speler.setKaartboek(new KaartBoek());
-        String kaart = speler.kiesRandomKaart().toString();
-        assertTrue(kaart.equals("") || Kaart.isGeldigeKaart(kaart));
-        assertEquals(kaart, speler.getKaartInHand().toString());
-    }
-
-    @Test
-    void getKaartInHand() {
-        speler.setKaartboek(new KaartBoek());
         Kaart kaart = speler.kiesRandomKaart();
-        assertEquals(kaart.toString(), speler.getKaartInHand().toString());
+        assertEquals(kaart, speler.getKaartInHand());
     }
 
     @Test
     void getKaartInHandBis() {
-        speler.setKaartboek(new KaartBoek(new char[]{'R'}));
+        speler.setKaartboek(new KaartBoek(new KaartSoort[]{KaartSoort.RUITEN}));
         Kaart kaart = speler.kiesRandomKaart();
-        assertEquals('R', kaart.getSoort());
-        assertEquals(kaart.toString(), speler.getKaartInHand().toString());
+        assertEquals(KaartSoort.RUITEN, kaart.getSoort());
+        assertEquals(kaart, speler.getKaartInHand());
 
-        String soorten = "HKRS";
-        for (int i = 0; i < soorten.length(); i++) {
-            speler.setKaartboek(new KaartBoek(new char[]{soorten.charAt(i)}));
+        KaartSoort[] soorten = KaartSoort.values();
+        for (int i = 0; i < soorten.length; i++) {
+            speler.setKaartboek(new KaartBoek(new KaartSoort[]{soorten[i]}));
             kaart = speler.kiesRandomKaart();
-            assertEquals(soorten.charAt(i), kaart.getSoort());
-            assertEquals(kaart.toString(), speler.getKaartInHand().toString());
+            assertEquals(soorten[i], kaart.getSoort());
+            assertEquals(kaart, speler.getKaartInHand());
+        }
+    }
+
+    @Test
+    void toStringTest() {
+        Speler speler = new Speler("Kristien");
+        assertEquals("Kristien: 0", speler.toString());
+        for (int i = 0; i < 10; i++) {
+            speler.incrementScore();
+            assertEquals("Kristien: " + (i+1), speler.toString());
         }
     }
 }

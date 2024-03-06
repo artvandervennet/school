@@ -1,188 +1,134 @@
 package logica;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class KaartBoek {
-    public final int AANTAL;
 
-    public Kaart[] kaarten;
+    private ArrayList<Kaart> kaarten = new ArrayList<Kaart>();;
 
 
     public KaartBoek() {
-        this.AANTAL = 52;
-        this.kaarten = new Kaart[this.AANTAL];
 
-        char[] soorten = new char[]{'S', 'H', 'K', 'R'};
-        char[] getallen = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'B', 'D', 'H', 'A'};
-        int index = 0;
+        for (KaartSoort soort : KaartSoort.values()) {
+            for (KaartWaarde waarde : KaartWaarde.values()) {
+                this.kaarten.add(new Kaart(soort, waarde)) ;
 
-        for (char soort : soorten) {
-
-            for (char getal : getallen) {
-                this.kaarten[index] = new Kaart(soort, getal);
-                index++;
             }
         }
     }
 
-    public KaartBoek(char[] soorten) {
+    public KaartBoek(KaartSoort[] soorten) {
+        for (KaartSoort soort : soorten) {
+            for (KaartWaarde waarde : KaartWaarde.values()) {
+                this.kaarten.add(new Kaart(soort, waarde));
 
-        int aantalJuisteSoorten = 0;
-        for (char soort : soorten) {
-            if (Kaart.isGeldigeSoort(soort)) {
-                aantalJuisteSoorten++;
             }
         }
 
-
-        this.AANTAL = aantalJuisteSoorten * 13;
-        this.kaarten = new Kaart[this.AANTAL];
-        char[] getallen = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'B', 'D', 'H', 'A'};
-        int index = 0;
-
-        int iS = 0;
-        for (char soort : soorten) {
-
-            if (Kaart.isGeldigeSoort(soort)) {
-                for (char getal : getallen) {
-                    this.kaarten[index] = new Kaart(soort, getal);
-                    index++;
-                }
-            }
-
-        }
     }
 
     public KaartBoek(String[] kaarten) {
 
-
-        int aantalGeldig = 0;
         for (String kaart : kaarten) {
-            if (Kaart.isGeldigeKaart(kaart)) {
-                aantalGeldig++;
-
-            }
-        }
-
-        this.AANTAL = aantalGeldig;
-        this.kaarten = new Kaart[this.AANTAL];
-
-        int index = 0;
-        for (String kaart : kaarten) {
-            if (Kaart.isGeldigeKaart(kaart)) {
-
-                this.kaarten[index] = new Kaart(kaart);
-                index++;
-
-
-            }
+            Kaart nieuwe_kaart = new Kaart(kaart);
+            if(nieuwe_kaart.getSoort() != null && nieuwe_kaart.getWaarde() != null)
+            this.kaarten.add(nieuwe_kaart) ;
         }
 
 
     }
 
-    public boolean bevatKaart(String kaart) {
-        for (Kaart kaart_in_boek : this.kaarten) {
-            if (Objects.equals(kaart, "" + kaart_in_boek.getSoort() + kaart_in_boek.getWaarde())) {
+    public ArrayList<Kaart> getKaarten() {
+        return kaarten;
+    }
+
+    public boolean bevatKaart(Kaart kaart) {
+        for (Kaart k :kaarten) {
+            if (k.isGelijkwaardigAan(kaart) && k.getSoort() == kaart.getSoort()){
                 return true;
             }
         }
         return false;
     }
 
-    public boolean bevatKaartVanSoort(char soort) {
-        for (Kaart kaart_in_boek : this.kaarten) {
-            if (Objects.equals(soort, kaart_in_boek.getSoort())) {
-                return true;
-            }
-        }
-        return false;
+    public boolean bevatKaartVanSoort(KaartSoort soort) {
+        return (! geefAlleKaartenVanSoort(soort).isEmpty());
     }
 
-    public Kaart[] geefAlleKaartenVanSoort(char soort) {
-        Kaart[] kaartenVanSoort;
-
-
-        boolean soortInBoek = false;
-        for (Kaart kaart_in_boek : this.kaarten) {
-            if (kaart_in_boek.getSoort() == soort) {
-                soortInBoek = true;
-                break;
+    public ArrayList<Kaart> geefAlleKaartenVanSoort(KaartSoort soort){
+        ArrayList<Kaart> kaarten_van_soort = new ArrayList<Kaart>();
+        for (Kaart k :kaarten) {
+            if (k.getSoort() == soort){
+                kaarten_van_soort.add(k);
             }
-
         }
 
-
-        int i = 0;
-        if (Kaart.isGeldigeSoort(soort) && soortInBoek) {
-            kaartenVanSoort = new Kaart[13];
-
-            for (Kaart kaart_in_boek : this.kaarten) {
-                if (Objects.equals(soort, kaart_in_boek.getSoort())) {
-
-                    kaartenVanSoort[i] = kaart_in_boek;
-                    i++;
-                }
-            }
-
-            int kaartenInKaartenVanSoort = 0;
-            for (Kaart kaart : kaartenVanSoort) {
-                if (kaart != null)
-                    kaartenInKaartenVanSoort++;
-            }
-
-            Kaart[] output = new Kaart[kaartenInKaartenVanSoort];
-
-            int index = 0;
-            for (Kaart kaart : kaartenVanSoort) {
-                if (kaart != null) {
-                    output[index] = kaart;
-                    index++;
-                }
-
-            }
-
-
-            return output;
-
-
-        }
-
-
-        return new Kaart[0];
-
-
+        return kaarten_van_soort;
     }
+
+    public ArrayList<Kaart> haalAlleKaartenVanSoort(KaartSoort soort){
+        ArrayList<Kaart> kaarten_van_soort = new ArrayList<Kaart>();
+        for (Kaart k :kaarten) {
+            if (k.getSoort() == soort){
+                kaarten_van_soort.add(k);
+
+            }
+        }
+
+        for (Kaart toRemove :kaarten_van_soort) {
+            kaarten.remove(toRemove);
+        }
+
+        return (!kaarten_van_soort.isEmpty())? kaarten_van_soort : null;
+    }
+
 
     public Kaart geefRandomKaart() {
-        Dobbelsteen dobbel = new Dobbelsteen(0, AANTAL - 1);
+        if(kaarten.isEmpty()){
+            return null;
+        }
+        Dobbelsteen dobbel = new Dobbelsteen(0, kaarten.size() - 1);
         dobbel.gooi();
-        return kaarten[dobbel.get()];
+        return kaarten.get(dobbel.get());
     }
 
-    public Kaart geefRandomKaartVanSoort(char soort) {
-
-        boolean soortInBoek = false;
-        for (Kaart kaart_in_boek : this.kaarten) {
-            if (kaart_in_boek.getSoort() == soort) {
-                soortInBoek = true;
-                break;
-            }
-
+    public Kaart haalRandomKaart(){
+        if(kaarten.isEmpty()){
+            return null;
         }
 
-        if(soortInBoek){
-            Dobbelsteen dobbel = new Dobbelsteen(0, AANTAL - 1);
-
-            do {
-                dobbel.gooi();
-            } while (!(kaarten[dobbel.get()].getSoort() == soort));
-
-
-            return kaarten[dobbel.get()];
-        }
-        return null;
+        Dobbelsteen dobbel = new Dobbelsteen(0, kaarten.size() - 1);
+        dobbel.gooi();
+        Kaart gegooid = kaarten.get(dobbel.get());
+        kaarten.remove(gegooid);
+        return gegooid;
     }
 
+    public Kaart geefRandomKaartVanSoort(KaartSoort soort) {
+
+        if(geefAlleKaartenVanSoort(soort).isEmpty()){
+            return null;
+        }
+
+        Dobbelsteen dobbel = new Dobbelsteen(0, geefAlleKaartenVanSoort(soort).size() - 1);
+            dobbel.gooi();
+
+        return geefAlleKaartenVanSoort(soort).get(dobbel.get());
+    }
+
+    public Kaart haalRandomKaartVanSoort(KaartSoort soort) {
+        if(geefAlleKaartenVanSoort(soort).isEmpty()){
+            return null;
+        }
+
+        Dobbelsteen dobbel = new Dobbelsteen(0, geefAlleKaartenVanSoort(soort).size() - 1);
+        dobbel.gooi();
+        Kaart gegooid = geefAlleKaartenVanSoort(soort).get(dobbel.get());
+
+        kaarten.remove(geefAlleKaartenVanSoort(soort).get(dobbel.get()));
+        return gegooid;
+    }
 
 }
