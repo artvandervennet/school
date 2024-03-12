@@ -3,9 +3,14 @@ package presentatie;
 
 import logica.KaartSpel;
 
+import java.util.ArrayList;
+
 public class demoSpel {
     public static void main(String[] args) {
         KaartSpel spel = new KaartSpel("Piet", "Jan", 3);
+
+        KaartSpel[] a = new KaartSpel[1];
+
 
         System.out.println("==Start spel==");
 

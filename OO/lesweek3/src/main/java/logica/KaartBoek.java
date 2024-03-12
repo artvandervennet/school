@@ -33,8 +33,14 @@ public class KaartBoek {
 
         for (String kaart : kaarten) {
             Kaart nieuwe_kaart = new Kaart(kaart);
-            if(nieuwe_kaart.getSoort() != null && nieuwe_kaart.getWaarde() != null)
-            this.kaarten.add(nieuwe_kaart) ;
+            if(nieuwe_kaart.getSoort() != null && nieuwe_kaart.getWaarde() != null){
+
+                try{
+                    this.kaarten.add(nieuwe_kaart) ;
+                }catch (IllegalArgumentException ignored) {
+                }
+            }
+
         }
 
 

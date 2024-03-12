@@ -26,4 +26,5 @@ public class Dobbelsteen {
     public String toString() {
         return Integer.toString(get());
     }
+
 }

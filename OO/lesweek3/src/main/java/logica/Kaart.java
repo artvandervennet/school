@@ -12,12 +12,10 @@ public class Kaart {
     }
 
     public Kaart(String data){
-        try{
+
             this.soort = Kaart.naarKaartSoort(data.charAt(0));
             this.waarde = Kaart.naarKaartWaarde(data.charAt(1));
-        }catch (IllegalArgumentException ignored){
 
-        }
 
 
         //this(Kaart.naarKaartSoort(data.charAt(0)) ,Kaart.naarKaartWaarde(data.charAt(1)) );
@@ -38,6 +36,9 @@ public class Kaart {
 
 
     public static Kaart geefHoogsteKaart(Kaart k1, Kaart k2){
+
+
+
 
         if (k1.getSoort() == KaartSoort.SCHOPPEN || k2.getSoort() == KaartSoort.SCHOPPEN){
 
