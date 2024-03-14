@@ -1,0 +1,183 @@
+
+:root {
+    --bg: #f8f8f8;
+    --color: #1a1a1a;
+
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+html {
+    font-family: "Montserrat", sans-serif;
+    color: var(--color);
+}
+
+body {
+    background-color: var(--bg);
+    line-height: 1.6;
+    margin: 0;
+    position: relative;
+}
+
+.container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.menuButton {
+    text-indent: 200%;
+    overflow: hidden;
+    white-space: nowrap;
+    background: none;
+    border: none;
+    position: relative;
+
+
+
+}
+.menuButton::after {
+    display: block;
+    background-image: url("opgave/images/Hamburger.svg");
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 15px;
+    position: absolute;
+
+}
+
+
+.visualyHidden:not(:focus):not(:active) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.svgHeader{
+    width: 2rem;
+    height: auto;
+}
+
+.logo{
+    margin: 0;
+
+}
+
+.menu {
+    display: none;
+}
+.util{
+    list-style: none;
+    display: flex;
+    order: -1;
+    padding: 0;
+}
+
+header{
+    padding: 2rem 0.5rem;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+nav{
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+nav ul{
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-evenly;
+}
+
+.delivery{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    background-color: var(--color);
+}
+
+.delivery p{
+    font-size: large;
+    font-weight: bold;
+    color: var(--bg);
+}
+
+.sneakerOfTheMonth{
+    height: 30rem;
+    width: 100%;
+    color: var(--bg);
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+}
+
+.sneakerOfTheMonth::before{
+    content: "";
+    background-color: #CA021C;
+    height: 30rem;
+    width: 100%;
+    color: var(--bg);
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+}
+
+
+.sneakerOfTheMonth::after{
+    content: "";
+    background-image: url("opgave/images/sneakerofthemonth.jpg");
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 65%;
+    width: 100%;
+    color: var(--bg);
+    z-index: -1;
+
+    position: absolute;
+
+}
+
+.sneakerOfTheMonth h2{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+/*.sneakerOfTheMonth::before{*/
+/*    display: block;*/
+/*    */
+/*    background-attachment: scroll;*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: contain;*/
+/*    content: "";*/
+/*    width: 100%;*/
+/*    height: ;*/
+
+
+/*}*/
+
+.sneakerOfTheMonth h2 span{
+        font-weight: normal;
+}
+
+.OriginalPrice, .NewPrice{
+
+}
