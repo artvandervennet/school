@@ -1,8 +1,7 @@
-
+/* helpers */
 :root {
-    --bg: #f8f8f8;
+    --bg: #fff;
     --color: #1a1a1a;
-
 }
 
 *,
@@ -30,6 +29,23 @@ body {
     padding: 0 1rem;
 }
 
+footer .container {
+    width: 100%;
+}
+
+.tussentitle {
+    color: #1e00ff;
+    font-weight: lighter;
+}
+
+.accentText {
+    color: #ca021c;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+/* header */
+
 .menuButton {
     text-indent: 200%;
     overflow: hidden;
@@ -37,9 +53,6 @@ body {
     background: none;
     border: none;
     position: relative;
-
-
-
 }
 .menuButton::after {
     display: block;
@@ -52,10 +65,7 @@ body {
     height: 100%;
     top: 15px;
     position: absolute;
-
 }
-
-
 .visualyHidden:not(:focus):not(:active) {
     clip: rect(0 0 0 0);
     clip-path: inset(50%);
@@ -65,119 +75,259 @@ body {
     white-space: nowrap;
     width: 1px;
 }
-
-.svgHeader{
+.svgHeader {
     width: 2rem;
     height: auto;
 }
-
-.logo{
+.logo {
     margin: 0;
-
 }
-
 .menu {
     display: none;
 }
-.util{
+.util {
     list-style: none;
     display: flex;
     order: -1;
     padding: 0;
 }
-
-header{
+header {
     padding: 2rem 0.5rem;
     display: flex;
     list-style: none;
     align-items: center;
     justify-content: space-evenly;
 }
-
-nav{
+nav {
     display: flex;
     flex-grow: 1;
     justify-content: space-between;
 }
-
-nav ul{
+nav ul {
     display: flex;
     flex-grow: 1;
     justify-content: space-evenly;
 }
 
-.delivery{
+/* banner */
+
+.delivery {
     display: flex;
     justify-content: center;
     margin: 0;
     padding: 0.5rem 1rem;
+
+    position: relative;
+}
+.delivery::before {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100vw;
+    max-width: 80rem;
+    position: absolute;
     background-color: var(--color);
 }
-
-.delivery p{
+.delivery p {
     font-size: large;
     font-weight: bold;
     color: var(--bg);
 }
-
-.sneakerOfTheMonth{
-    height: 30rem;
+.sneakerOfTheMonth {
+    height: 40rem;
     width: 100%;
     color: var(--bg);
     display: flex;
     flex-direction: column-reverse;
     position: relative;
 }
-
-.sneakerOfTheMonth::before{
+.sneakerOfTheMonth::before {
     content: "";
-    background-color: #CA021C;
-    height: 30rem;
-    width: 100%;
-    color: var(--bg);
+    display: block;
+    background: #ca021c url("opgave/images/sneakerofthemonth.jpg") no-repeat
+        scroll 0rem;
+    background-size: contain;
+    height: 100%;
+    width: 100vw;
+    max-width: 80rem;
+    margin-left: -1rem;
+    position: absolute;
+    z-index: -1;
+}
+.sneakerOfTheMonth h2 span {
+    font-weight: normal;
+}
+.originalPrice {
+    font-weight: lighter;
+    text-decoration: line-through;
+}
+.title {
+    font-size: xx-large;
+    font-weight: bold;
+}
+.price {
+    order: -1;
+    margin-bottom: 2rem;
+    margin-top: 0;
+}
+.sneakerOfTheMonth h2 {
     display: flex;
     flex-direction: column-reverse;
+
+    margin-bottom: 0;
+}
+
+/* find */
+.find {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* shop */
+
+.shop {
+    display: flex;
+    gap: min(1rem, 5%);
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #1e00ff;
+    font-weight: bold;
+}
+.card img {
+    width: calc((100vw - 1rem * 2 - min(1rem, 5%)) / 2);
+    max-width: calc((80rem - 2rem * 3) / 3);
+}
+
+/* new sneaker */
+
+.nieuwsneaker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+@media (min-width: 80rem) {
+    .nieuwsneaker {
+        max-width: calc((80rem - 2rem * 3) / 3);
+    }
+}
+
+.nieuwsneaker a {
+    text-decoration: none;
+    color: var(--bg);
+    background-color: #1e00ff;
+    padding: 1rem 2rem;
+    border: #1e00ff solid;
+    border-radius: 5px;
+}
+
+/* popular */
+.popular {
+    display: flex;
+    flex-direction: column;
+}
+.popular ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.popular li {
+    display: flex;
+    flex-direction: column;
+    border-bottom: solid #61616172 1px;
+    padding-bottom: 1rem;
+}
+
+.popular h3 {
+    margin-bottom: 0;
+}
+
+.popular figure {
+    order: -1;
+    align-self: center;
+    background-color: transparent;
+}
+
+.popular div {
+    display: flex;
+    align-items: center;
+    gap: 20%;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.popular div a {
+    font-size: large;
+    color: #1e00ff;
+    font-weight: 500;
+}
+
+/* expect */
+.expect {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+}
+
+.expect h2 {
+    align-self: center;
+    text-align: center;
+}
+
+footer {
+    width: 100dvw;
+    background-color: var(--color);
+}
+
+footer .footer {
+    padding-top: 2rem;
+    padding-right: 1rem;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer a {
+    color: inherit;
+}
+
+.logos {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.logos li {
+    text-indent: 200%;
+    width: fit-content;
+    height: fit-content;
+    overflow: hidden;
+    white-space: nowrap;
+    background: none;
+    border: none;
     position: relative;
 }
 
-
-.sneakerOfTheMonth::after{
-    content: "";
-    background-image: url("opgave/images/sneakerofthemonth.jpg");
+.logos li:first-child::after {
+    display: block;
+    background-image: url("opgave/images/Hamburger.svg");
     background-attachment: scroll;
     background-repeat: no-repeat;
     background-size: contain;
-    height: 65%;
+    content: "";
     width: 100%;
-    color: var(--bg);
-    z-index: -1;
-
+    height: 100%;
+    top: 15px;
     position: absolute;
-
-}
-
-.sneakerOfTheMonth h2{
-    display: flex;
-    flex-direction: column-reverse;
-}
-
-/*.sneakerOfTheMonth::before{*/
-/*    display: block;*/
-/*    */
-/*    background-attachment: scroll;*/
-/*    background-repeat: no-repeat;*/
-/*    background-size: contain;*/
-/*    content: "";*/
-/*    width: 100%;*/
-/*    height: ;*/
-
-
-/*}*/
-
-.sneakerOfTheMonth h2 span{
-        font-weight: normal;
-}
-
-.OriginalPrice, .NewPrice{
-
 }
