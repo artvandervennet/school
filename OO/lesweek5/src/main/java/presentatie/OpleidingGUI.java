@@ -1,13 +1,10 @@
 package presentatie;
 
-import logica.Klasgroep;
-import logica.Rapport;
-import logica.Vak;
+import logica.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class OpleidingGUI {
     private JPanel mainPanel;
@@ -30,15 +27,18 @@ public class OpleidingGUI {
     private JButton addButton;
     private JButton verwijderButton;
     private JComboBox klasgroep;
-    private JComboBox comboBox2;
-    private JPanel studenten;
-    private JPanel StudentManager;
+    private JComboBox filter;
+    private JPanel studentManager;
     private JTextField naam;
+    private JTextPane students;
+    private JList studentenLijst;
+    private JLabel error;
 
 
     private JLabel[] vakken = {vakNaam1, vakNaam2, vakNaam3, vakNaam4, vakNaam5, vakNaam6};
     private JTextField[] punten = {punten1, punten2, punten3, punten4, punten5, punten6};
-    private logica.Rapport rapport = new Rapport();
+    private logica.Rapport rapport;
+    private Opleiding opleiding;
 
     private int aantalVakken;
 
@@ -77,24 +77,28 @@ public class OpleidingGUI {
 
     }
 
-    public OpleidingGUI() {
-        klasgroep.setModel(new DefaultComboBoxModel(Klasgroep.values()));
-
-
+    private void reset(){
+        rapport = new Rapport();
         rapport.setVakken(new Vak[]{new Vak("code_EN", "Elektronische Netwerken", 6), new Vak("code_PF", "Programming Fundamentals", 6), new Vak("code_WI", "Web Introduction", 6), new Vak("code_IF", "Infrastructure Fundamentals", 6), new Vak("code_ER", "Elektronische Realisatietechnieken", 6), new Vak("code_FSI", "Fundamental Skills for ICT", 6) });
-
-
-        //rapport.setVakken(new Vak[]{new Vak("code_EN", "Elektronische Netwerken", 6), new Vak("code_PF", "Programming Fundamentals", 6)});
-
         aantalVakken = rapport.getVakken().length;
 
-        MaxScore.setText("Max Score: " + String.valueOf(Vak.MAX_SCORE));
+        for (Component c : studentManager.getComponents()) {
+            if (c instanceof JTextField){
+                ((JTextField) c).setText("");
+
+            }
+
+        }
+
+
 
         int i;
         for (i = 0; i < aantalVakken; i++) {
             vakken[i].setText(rapport.getVakken()[i].getNaam());
             vakken[i].setVisible(true);
             punten[i].setVisible(true);
+            punten[i].setBackground(Color.white);
+            punten[i].setText("");
         }
 
         for (; i < vakken.length; i++) {
@@ -103,20 +107,117 @@ public class OpleidingGUI {
         }
 
 
-        punten1.addActionListener(e -> controlePunten(0));
-        punten2.addActionListener(e -> controlePunten(1));
-        punten3.addActionListener(e -> controlePunten(2));
-        punten4.addActionListener(e -> controlePunten(3));
-        punten5.addActionListener(e -> controlePunten(4));
-        punten6.addActionListener(e -> controlePunten(5));
+    }
+
+    public OpleidingGUI() {
+        punten1.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                controlePunten(0);
+            }
+        });
+        punten2.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                controlePunten(1);
+            }
+        });
+        punten3.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                controlePunten(2);
+            }
+        });
+        punten4.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                controlePunten(3);
+            }
+        });
+        punten5.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                controlePunten(4);
+            }
+        });
+        punten6.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                controlePunten(5);
+            }
+        });
 
 
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                try {
+                    error.setText("");
+
+                    String studentNumber = studentennummer.getText();
+                    String studentNaam = naam.getText();
+                    Klasgroep studentKlasgroep = (Klasgroep) klasgroep.getSelectedItem();
+
+                    Student s = new Student(studentNumber, studentNaam, studentKlasgroep);
+                    s.setRapport(rapport);
+                    opleiding.voegStudentToe(s);
+                    doeFilter();
+
+                    reset();
+                } catch (IllegalArgumentException a) {
+                    error.setText("not a valid student");
+                    error.setForeground(Color.red);
+                }
+
+
             }
         });
+        filter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                doeFilter();
+
+            }
+        });
+        verwijderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    error.setText("");
+                    String studentNumber = studentennummer.getText();
+                    String studentNaam = naam.getText();
+                    Klasgroep studentKlasgroep = (Klasgroep) klasgroep.getSelectedItem();
+
+                    Student s = new Student(studentNumber, studentNaam, studentKlasgroep);
+                    opleiding.verwijderStudent(s);
+                    doeFilter();
+                    reset();
+                } catch (IllegalArgumentException a) {
+                    error.setText("not a valid student");
+                    error.setForeground(Color.red);
+                }
+
+            }
+        });
+
+
+        klasgroep.setModel(new DefaultComboBoxModel(Klasgroep.values()));
+        filter.setModel(new DefaultComboBoxModel(Graad.values()));
+        MaxScore.setText("Max Score: " + String.valueOf(Vak.MAX_SCORE));
+
+        opleiding = new Opleiding("ICT-Elektronica");
+
+        reset();
+
+
+
+
+
+        //rapport.setVakken(new Vak[]{new Vak("code_EN", "Elektronische Netwerken", 6), new Vak("code_PF", "Programming Fundamentals", 6)});
+
+
+
     }
 
     public static void main(String[] args) {
@@ -125,5 +226,19 @@ public class OpleidingGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500,500);
         frame.setVisible(true);
+
+
+
+
     }
+
+
+    private void doeFilter(){
+        if ((Graad) filter.getSelectedItem() == Graad.ONBEPAALD){
+            studentenLijst.setListData(opleiding.getStudenten().toArray());
+        }else{
+            studentenLijst.setListData(opleiding.geefStudentenMetGraad((Graad) filter.getSelectedItem()).toArray());
+        }
+    }
+
 }

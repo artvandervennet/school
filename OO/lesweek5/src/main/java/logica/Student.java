@@ -41,12 +41,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "studentnummer='" + studentnummer + '\'' +
-                ", naam='" + naam + '\'' +
-                ", klasgroep=" + klasgroep +
-                ", rapport=" + rapport +
-                '}';
+        return naam + " (" + studentnummer + ") - " + klasgroep + " - " + rapport;
     }
 
     @Override
