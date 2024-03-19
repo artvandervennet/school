@@ -30,12 +30,14 @@ public class RapportGUI {
     private JTextField punten6;
 
 
-    private JLabel[] vakken = {vakNaam1, vakNaam2, vakNaam3, vakNaam4, vakNaam5, vakNaam6};
-    private JTextField[] punten = {punten1, punten2, punten3, punten4, punten5, punten6};
+
     private JLabel maxScoreLabel;
     private JLabel MaxScore;
     private JLabel Resultaat;
 
+
+    private JLabel[] vakken = {vakNaam1, vakNaam2, vakNaam3, vakNaam4, vakNaam5, vakNaam6};
+    private JTextField[] punten = {punten1, punten2, punten3, punten4, punten5, punten6};
     private Rapport rapport = new Rapport();
 
     private int aantalVakken;
