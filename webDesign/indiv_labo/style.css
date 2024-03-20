@@ -1,0 +1,337 @@
+@media (min-width: 40rem) {
+    .onderzoek {
+        display: flex;
+
+        justify-content: space-between;
+    }
+
+    .kankeronderzoek {
+        max-width: 70%;
+    }
+
+    .teams {
+        flex-direction: row;
+    }
+    .cards {
+        max-width: 33%;
+    }
+
+    .menuButton::after,
+    .menuButton {
+        visibility: hidden;
+    }
+}
+
+@media (max-width: 40rem) {
+    .teams {
+        flex-direction: column;
+    }
+}
+
+/* helpers */
+:root {
+    --wit: #fff;
+    --bg: #f5f5f5;
+
+    --color: rgb(62, 43, 46);
+    --accent: rgb(252, 181, 20);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+a {
+    color: var(--color);
+    text-decoration: none;
+    position: relative;
+    z-index: 2;
+}
+
+a:not(.noLink):after {
+    display: block;
+    position: absolute;
+    content: "";
+    background-color: var(--accent);
+    width: 100%;
+    height: 0.1rem;
+}
+
+a:not(.noLink):hover:after,
+a:not(.noLink):focus-visible:after {
+    background-color: var(--color);
+}
+
+.noLink:hover,
+.noLink:focus-visible {
+    background-color: var(--wit);
+    border: 5px var(--accent);
+    border-radius: 2rem;
+}
+
+ul {
+    list-style: square;
+}
+li {
+    margin-bottom: 0.5rem;
+}
+li::marker {
+    color: var(--accent);
+}
+
+H1 {
+    font-size: 3.5rem;
+}
+H2 {
+    font-size: 2rem;
+}
+H3 {
+    font-size: 1.5rem;
+}
+p {
+    font-size: 1.2rem;
+}
+
+.banner,
+.kankerlijn,
+.teams {
+    box-shadow: 2px var(--color);
+}
+
+html {
+    font-family: "Montserrat", sans-serif;
+    color: var(--color);
+}
+
+body {
+    background-color: var(--bg);
+    line-height: 1.2;
+    margin: 0;
+    position: relative;
+}
+
+.container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.visualyHidden:not(:focus):not(:active) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+/* header */
+
+.menuButton {
+    width: 0;
+    text-indent: 10rem;
+    overflow: hidden;
+    white-space: nowrap;
+    background: none;
+    border: none;
+}
+.menuButton::after {
+    display: block;
+    background-image: url("images/iconmenu.svg");
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    min-width: 1.5rem;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -1rem;
+
+    position: absolute;
+}
+
+.menu {
+    list-style: none;
+    order: -1;
+    padding: 0;
+    display: flex;
+    grid-gap: 2rem;
+    justify-content: space-between;
+}
+header {
+    padding: 2rem 0.5rem;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.logo {
+    flex-grow: 1;
+}
+
+nav {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row-reverse;
+}
+
+nav li {
+    position: relative;
+}
+
+.headerItem::after {
+    display: block;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 1.5rem;
+    position: absolute;
+}
+
+.zoeken::after {
+    background-image: url("images/iconsearch.svg");
+}
+
+.aanmelden::after {
+    background-image: url("images/iconuser.svg");
+}
+
+.banner {
+    background-image: url("images/bannercycling.jpg");
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    padding-left: 1rem;
+    height: 20rem;
+    display: flex;
+    align-items: flex-end;
+}
+.banner h1 {
+    background-color: var(--accent);
+    line-height: 4rem;
+}
+
+.aftellen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--accent);
+    min-width: 25%;
+}
+.bigTekst {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin: 1rem;
+}
+
+.teams {
+    display: flex;
+    list-style: none;
+
+    gap: 2rem;
+    padding: 0;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    outline: solid var(--accent) 2px;
+    align-items: center;
+    position: relative;
+    background-color: var(--wit);
+}
+
+.cards img {
+    width: 100%;
+}
+
+.cards picture {
+    order: -1;
+}
+
+.location {
+    margin-top: 0;
+}
+.cards div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: absolute;
+    padding: 0 1rem;
+    right: 1rem;
+    background-color: var(--accent);
+}
+
+.cards div::after {
+    display: block;
+    background-image: url(images/iconlocation.svg);
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    width: 2rem;
+    height: 3rem;
+    margin-top: 0.5rem;
+    order: -1;
+}
+
+.cards p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.cards p span {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.noLink {
+    text-decoration: none;
+    color: var(--color);
+    padding: 1rem 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: var(--accent);
+    border: var(--accent);
+    border-radius: 2rem;
+}
+
+.kankerlijn {
+    background-color: var(--wit);
+    outline: solid var(--accent) 2px;
+    padding: 1rem 0.5rem;
+}
+
+.kankerlijn h2,
+.kankerlijn ul {
+    margin-bottom: 0;
+}
+
+footer {
+    margin-top: 2rem;
+    width: 100dvw;
+    background-color: var(--color);
+}
+
+footer section {
+    display: flex;
+}
+
+footer a {
+    color: var(--bg);
+}

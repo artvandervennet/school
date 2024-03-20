@@ -1,0 +1,31 @@
+/* ROOT */
+
+*, ::after, ::before {
+    box-sizing: border-box
+}
+
+html {
+    background-color: var(--bg);
+    font-family: 'Josefin Sans', sans-serif;
+    color: var(--primary)
+}
+
+/* UTILITY CLASSES, ATOMS...*/
+
+/* HEADER */
+
+header .logo {
+    font-weight: 700;
+    font-variant: all-petite-caps;
+    letter-spacing: .2em;
+    font-size: clamp(1rem, 2vw, 2rem);
+    display: inline-block
+}
+
+/* MAIN */
+
+/* FOOTER */
+
+/* BREAKPOINTS */
+
+/* ANIMATIONS */
