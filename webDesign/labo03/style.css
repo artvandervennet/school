@@ -55,10 +55,14 @@ ul {
     list-style: none;
 }
 
+figure {
+    display: flex;
+}
+
 img {
     object-fit: cover;
     max-width: 100%;
-    aspect-ratio: 8/5;
+    aspect-ratio: 8 / 5;
 }
 
 button {
@@ -126,7 +130,8 @@ header .content a::after {
     left: 0;
 }
 
-li:has(> a.active)::before {
+header a.active::before,
+header li:hover a::before {
     content: "";
     position: absolute;
     width: 0.5rem;
@@ -134,7 +139,7 @@ li:has(> a.active)::before {
 
     scale: 0.7;
 
-    top: 30%;
+    top: 25%;
     left: -1rem;
     rotate: 45deg;
 
@@ -172,13 +177,18 @@ li:has(> a.active)::before {
     gap: 2rem;
 }
 
-
 .button {
     background-color: var(--bg);
     border: var(--primary) solid;
     border-radius: 2px;
     color: var(--primary);
     padding: 0.5rem 1rem;
+}
+
+.button:hover,
+.button:focus-visible {
+    background-color: var(--primary);
+    color: var(--bg);
 }
 
 .limited {
@@ -205,8 +215,103 @@ footer::after {
 }
 
 /* BREAKPOINTS */
+@media (max-width: 46.875rem) {
+    .visableMenu {
+        visibility: hidden;
+        position: absolute;
+        top: -10rem;
+    }
+
+    .visableImg {
+        display: none;
+    }
+}
 
 @media (min-width: 46.875rem) {
+    .hamburger {
+        display: none;
+    }
+
+    header nav {
+        visibility: visible;
+    }
+
+    .teasers {
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    .teasers section {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .teasers p {
+        order: 1;
+    }
+
+    .visableImg:not(img:nth-child(2)) {
+        display: none;
+    }
+
+    header .content {
+        justify-content: center;
+    }
+
+    header .content a {
+        display: inline-block;
+    }
+
+    header .content li {
+        padding: 1rem 2rem;
+    }
+
+    header ul {
+        display: flex;
+        justify-content: center;
+    }
+
+    header a.active::before,
+    header li:hover a::before {
+        top: -0.5rem;
+        left: -1rem;
+    }
+
+    .intro {
+        position: relative;
+    }
+
+    .intro figure {
+        display: flex;
+        justify-content: center;
+    }
+
+    .intro .content {
+        display: inline-block;
+        position: absolute;
+        bottom: -4rem;
+        width: fit-content;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+
+        padding: 1rem 2rem;
+
+        background-color: var(--bg);
+    }
+}
+
+@media (min-width: 60rem) {
+    .gallery {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .gallery img {
+        flex: 1 1 0;
+    }
 }
 
 /* ANIMATIONS */
