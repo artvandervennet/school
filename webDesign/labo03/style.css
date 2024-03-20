@@ -61,6 +61,10 @@ img {
     aspect-ratio: 8/5;
 }
 
+button {
+    z-index: 2;
+}
+
 /* HEADER */
 
 header .logo {
@@ -157,12 +161,17 @@ li:has(> a.active)::before {
     gap: 6rem;
 }
 
+.limited h2 {
+    margin-top: 0;
+}
+
 .gallery {
     display: flex;
     flex-direction: column;
     padding-bottom: 1rem;
     gap: 2rem;
 }
+
 
 .button {
     background-color: var(--bg);
