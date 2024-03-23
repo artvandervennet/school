@@ -19,6 +19,8 @@
         menuHidden = !menuHidden;
     });
 
+
+    
     showMoreBtn.addEventListener("click", function () {
         morePictures.forEach((element) => {
             console.log(element);

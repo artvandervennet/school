@@ -55,13 +55,11 @@ ul {
     list-style: none;
 }
 
-figure {
-    display: flex;
-}
+
 
 img {
     object-fit: cover;
-    max-width: 100%;
+    width: 100%;
     aspect-ratio: 8 / 5;
 }
 
@@ -134,16 +132,34 @@ header a.active::before,
 header li:hover a::before {
     content: "";
     position: absolute;
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 0.4rem;
+    aspect-ratio: 1/1;
 
-    scale: 0.7;
+    scale: 1;
 
     top: 25%;
     left: -1rem;
-    rotate: 45deg;
 
-    background-color: var(--primary);
+    background-color: var(--bg);
+    border: 2px solid var(--primary);
+
+    animation: listStyle;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes listStyle {
+    0%{
+        transform: rotate(0) scale(1.5);
+    }
+
+    50%{
+        transform: rotate(45deg) scale(1.5);
+    }
+    
+    100%{
+        transform: rotate(45deg) scale(1);
+    }
 }
 
 /* MAIN */
@@ -198,7 +214,7 @@ header li:hover a::before {
 /* FOOTER */
 footer {
     padding: 2rem 0;
-    position: sticky;
+    position: r;
     display: flex;
 }
 
@@ -300,9 +316,6 @@ footer::after {
 
         background-color: var(--bg);
     }
-}
-
-@media (min-width: 60rem) {
     .gallery {
         display: flex;
         flex-direction: row;
@@ -310,8 +323,10 @@ footer::after {
     }
 
     .gallery img {
-        flex: 1 1 0;
+        max-width: calc(50% - 1rem);
     }
 }
+
+
 
 /* ANIMATIONS */
