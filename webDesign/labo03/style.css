@@ -55,8 +55,6 @@ ul {
     list-style: none;
 }
 
-
-
 img {
     object-fit: cover;
     width: 100%;
@@ -96,9 +94,41 @@ header .content {
     outline: none;
     border: none;
     color: var(--primary);
+    position: relative;
 }
 
-header .content nav {
+.hamburger .icon {
+    position: absolute;
+    display: flex;
+    flex-flow: column;
+    gap: 3px;
+    right: 3.5em;
+    top: 0.15em;
+}
+
+.hamburger .icon > span {
+    width: 20px;
+    height: 2px;
+    background-color: var(--primary);
+    transition: transform 0.2s ease-in-out;
+}
+
+.hamburger[aria-expanded="true"] .icon > span:nth-child(1) {
+    transform: rotate(45deg) translateX(7px);
+}
+.hamburger[aria-expanded="true"] .icon > span:nth-child(3) {
+    transform: rotate(-45deg) translateX(7px);
+}
+.hamburger[aria-expanded="true"] .icon > span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger[aria-expanded="false"] + nav {
+    display: none;
+}
+
+.hamburger + nav {
+    display: none;
     width: 100%;
 }
 
@@ -144,20 +174,20 @@ header li:hover a::before {
     border: 2px solid var(--primary);
 
     animation: listStyle;
-    animation-duration: .5s;
+    animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
 
 @keyframes listStyle {
-    0%{
+    0% {
         transform: rotate(0) scale(1.5);
     }
 
-    50%{
+    50% {
         transform: rotate(45deg) scale(1.5);
     }
-    
-    100%{
+
+    100% {
         transform: rotate(45deg) scale(1);
     }
 }
@@ -232,14 +262,21 @@ footer::after {
 
 /* BREAKPOINTS */
 @media (max-width: 46.875rem) {
-    .visableMenu {
-        visibility: hidden;
-        position: absolute;
-        top: -10rem;
+    .hamburger[aria-expanded="true"] + nav {
+        animation: menuDown;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
     }
 
     .visableImg {
         display: none;
+    }
+}
+
+@keyframes menuDown {
+    0% {
+        display: block;
+        margin-top: -150rem;
     }
 }
 
@@ -326,7 +363,5 @@ footer::after {
         max-width: calc(50% - 1rem);
     }
 }
-
-
 
 /* ANIMATIONS */
