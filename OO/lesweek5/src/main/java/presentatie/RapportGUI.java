@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.util.Arrays;
 
 public class RapportGUI {
     private JPanel mainPanel;
@@ -66,12 +69,19 @@ public class RapportGUI {
         }
 
 
-        punten1.addActionListener(e -> controlePunten(0));
-        punten2.addActionListener(e -> controlePunten(1));
-        punten3.addActionListener(e -> controlePunten(2));
-        punten4.addActionListener(e -> controlePunten(3));
-        punten5.addActionListener(e -> controlePunten(4));
-        punten6.addActionListener(e -> controlePunten(5));
+        FocusAdapter listener = new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                controlePunten(Arrays.asList(punten).indexOf(e.getSource()));
+            }
+        };
+        punten1.addFocusListener(listener);
+        punten2.addFocusListener(listener);
+        punten3.addFocusListener(listener);
+        punten5.addFocusListener(listener);
+        punten6.addFocusListener(listener);
+        punten4.addFocusListener(listener);
+
     }
 
     private void controlePunten(int index){

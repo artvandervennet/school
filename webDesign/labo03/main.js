@@ -14,9 +14,11 @@
         menuBtn.ariaExpanded = !(menuBtn.ariaExpanded === "true");
     });
 
+    
+    
     showMoreBtn.addEventListener("click", function () {
         morePictures.forEach((element) => {
-            console.log(element);
+            
             element.className = picHidden ? "visableImg" : "";
         });
         showLessTekst.className = picHidden ? "visableImg" : "";

@@ -5,6 +5,7 @@ import logica.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 
 public class OpleidingGUI {
     private JPanel mainPanel;
@@ -110,42 +111,7 @@ public class OpleidingGUI {
     }
 
     public OpleidingGUI() {
-        punten1.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                controlePunten(0);
-            }
-        });
-        punten2.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                controlePunten(1);
-            }
-        });
-        punten3.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                controlePunten(2);
-            }
-        });
-        punten4.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                controlePunten(3);
-            }
-        });
-        punten5.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                controlePunten(4);
-            }
-        });
-        punten6.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                controlePunten(5);
-            }
-        });
+
 
 
         addButton.addActionListener(new ActionListener() {
@@ -215,6 +181,20 @@ public class OpleidingGUI {
 
 
         //rapport.setVakken(new Vak[]{new Vak("code_EN", "Elektronische Netwerken", 6), new Vak("code_PF", "Programming Fundamentals", 6)});
+
+
+        FocusAdapter listener = new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                controlePunten(Arrays.asList(punten).indexOf(e.getSource()));
+            }
+        };
+        punten1.addFocusListener(listener);
+        punten2.addFocusListener(listener);
+        punten3.addFocusListener(listener);
+        punten5.addFocusListener(listener);
+        punten6.addFocusListener(listener);
+        punten4.addFocusListener(listener);
 
 
 
